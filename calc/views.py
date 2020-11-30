@@ -36,7 +36,8 @@ def setq(request):
 
 def setExam(request):
     # s = subject.objects.all()
-    return render(request,'set_quiz.html')
+    i = range(1,16);
+    return render(request,'set_quiz.html',{'range':i})
 
 def post(request):
     return render(request,'post.html')
