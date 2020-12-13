@@ -10,8 +10,8 @@
   <title>Aces</title>
   <link href="{% static 'css/style.css'%}" rel="stylesheet">
 </head>
-<body class="bl text-center">
-  <form class="form-signin bo" method="POST" action="">
+<body class="bl text-center d-flex justify-content-center pt-5 mt-5">
+  <form class="form-signin col-3" method="POST" action="">
     {% csrf_token %}
     <img class="mb-4" src="{% static 'images/logo.png' %}" alt="" width="92" height="72">
   <p class="h3 mb-3 font-weight-normal text-black">Please sign in</p>
@@ -29,8 +29,9 @@
       <input type="checkbox" value="remember-me"> Remember me
     </label>
   </div>
-  <button class="btn btn-lg btn-primary btn-block mb-2" type="submit" name="btn">Sign in</button>
-  <a class="btn btn-lg btn-dark btn-block mb-2" href="register" >New User</a>
+  <button class="btn  btn-success btn-block mb-2" type="submit" name="btn">Sign in</button>
+  <a class="btn  btn-info btn-block mb-2" href="register" >New User</a>
+  <a class="btn  btn-secondary btn-block mb-2" href="faculty" >Admin Login</a>
   <p class="mt-5 mb-3 text-muted">&copy; 2020-2021</p>
   </form>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

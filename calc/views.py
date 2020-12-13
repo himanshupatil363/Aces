@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from .models import *
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-# Create your views here.
+from django.contrib.admin.views.decorators import staff_member_required
+
+
 def home(request):
     if request.method== 'POST':
         username = request.POST['username']
@@ -11,37 +13,31 @@ def home(request):
         user = auth.authenticate(username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            return redirect("/faculty")
+            return redirect("/index")
         else:
             messages.info(request,'Invalid Credentials')
             return redirect('/')
     else:    
         return render(request,'login.html')
-
+@staff_member_required
 def faculty(request):
     return render(request,'faculty.html')
 
+def index(request):
+    return render(request,'student/index.html')
+@staff_member_required
 def create_class(request):
-    # if request.method == "POST":
-    #     faculty_name = request.POST['faculty_name']
-    #     class_name = request.POST['class_name']
-    #     department = request.POST['department']
-    #     year = request.POST['year']
-    #     sem = request.POST['sem']
-    #     f = Classes(faculty_name=faculty_name,class_name=class_name,department=department,year=year,sem=sem)
-    #     f.save()
     return render(request,'create_class.html')
+@staff_member_required
 def setq(request):
     return render(request,'set_q.html')
-
+@staff_member_required
 def setExam(request):
-    # s = subject.objects.all()
-    i = range(1,16);
-    return render(request,'set_quiz.html',{'range':i})
-
+        return render(request,'setExam.html')
+@staff_member_required
 def post(request):
     return render(request,'post.html')
-
+@staff_member_required
 def report(request):
     return render(request,'report.html')
 
@@ -60,7 +56,8 @@ def register(request):
                 year = request.POST['year']
                 s_id = request.POST['s_id']
                 m_num = request.POST['m_num']
-                ext = extendUser(year=year,s_id=s_id,m_num=m_num,user=user)
+                dpt = request.POST['dpt']
+                ext = extendUser(year=year,s_id=s_id,m_num=m_num,user=user,dpt=dpt)
                 ext.save();
                 return redirect('/')
         else:
@@ -73,3 +70,9 @@ def register(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+def profile(request):
+    inf = extendUser.objects.filter(user=request.user.id)
+    return render(request,'student/profile.html',{'inf':inf});
+
+

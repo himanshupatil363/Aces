@@ -5,4 +5,4 @@ from .models import *
 admin.site.register(extendUser)
 admin.site.register(year)
 admin.site.register(semester)
-admin.site.register(subject)
+
